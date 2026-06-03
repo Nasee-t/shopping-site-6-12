@@ -1,6 +1,8 @@
 import { useSelector } from "react-redux";
 import CartItem from "./CartItem";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function Cart() {
   const items = useSelector((state) => state.cart.items);
   const totalPrice = useSelector((state) => state.cart.totalPrice);
@@ -8,7 +10,7 @@ function Cart() {
   const handleCheckout = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8080/create-checkout-session",
+         `${API_URL}/create-checkout-session`,
         {
           method: "POST",
           headers: {

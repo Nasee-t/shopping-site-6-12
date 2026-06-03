@@ -1,9 +1,8 @@
 import { cartActions } from './cartSlice';
 import { uiActions } from '../ui/uiSlice';
 
-// const API_URL = import.meta.env.VITE_API_URL;
-const API_URL = 'http://localhost:8080';
-
+const API_URL = import.meta.env.VITE_API_URL;
+// const API_URL = 'http://localhost:8080';
 
 export const fetchCartData = () => {
   return async (dispatch) => {

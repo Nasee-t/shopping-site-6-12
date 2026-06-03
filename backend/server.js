@@ -12,6 +12,9 @@ app.use(express.json());
 const Stripe = require('stripe');
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
+const API_URL = process.env.VITE_API_URL;
+const APP_URL = process.env.VITE_APP_URL;
+
 let db;
 // Initialize Database
 (async () => {
@@ -88,8 +91,8 @@ app.post('/create-checkout-session', async (req, res) => {
 
       line_items: lineItems,
 
-      success_url: 'http://localhost:5173/success',
-      cancel_url: 'http://localhost:5173/cancel',
+      success_url: `${APP_URL}/success`,
+      cancel_url: `${APP_URL}/cancel`,
     });
 
     res.status(200).json({
@@ -104,4 +107,4 @@ app.post('/create-checkout-session', async (req, res) => {
   }
 });
 
-app.listen(8080, () => console.log("Cart Backend running on http://localhost:8080"));
+app.listen(8080, () => console.log(`Cart Backend running on ${API_URL}`));

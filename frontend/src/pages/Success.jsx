@@ -1,27 +1,30 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { cartActions } from '../features/cart/cartSlice';
-import { sendCartData } from '../features/cart/cartThunks';
+import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { cartActions } from "../features/cart/cartSlice";
+import { sendCartData } from "../features/cart/cartThunks";
 
 function Success() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log("before clearCart dispatch");
-    dispatch(cartActions.clearCart());
-    dispatch(
+  const handleContinueShopping = async () => {
+    await dispatch(
       sendCartData({
         items: [],
         totalQuantity: 0,
-      })
+      }),
     );
-    console.log("After clearCart dispatch");
-  }, [dispatch]);
+
+    dispatch(cartActions.clearCart());
+
+    navigate("/");
+  };
 
   return (
     <div>
       <h1>Payment Successful!</h1>
       <p>Thank you for your purchase.</p>
+      <button onClick={handleContinueShopping}>Continue Shopping</button>
     </div>
   );
 }
